@@ -19,13 +19,13 @@ class PostDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'dashboard.posts.datatables_actions')
-            ->editColumn('image', function ($q) {
-                return $q->image ?
-                    '<img src="' . asset('storage/' . $q->image) . '" alt="Image" style="max-width:70px; max-height:70px">'
+            ->editColumn('image', function ($record) {
+                return $record->image ?
+                    '<img src="' . asset('storage/' . $record->image) . '" alt="Image" style="max-width:70px; max-height:70px">'
                     : 'لا توجد صورة';
             })
-            ->editColumn('body', function ($q) {
-                return html_entity_decode(strip_tags($q->body));
+            ->editColumn('body', function ($record) {
+                return html_entity_decode(strip_tags($record->body));
             })
             ->rawColumns(['action', 'image']);
     }
